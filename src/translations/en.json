@@ -104,22 +104,5 @@
   "beneficiary.gql_beneficiary_search_perms": "Beneficiary | Beneficiary Search",
   "beneficiary.gql_beneficiary_create_perms": "Beneficiary | Beneficiary Create",
   "beneficiary.gql_beneficiary_update_perms": "Beneficiary | Beneficiary Update",
-  "beneficiary.gql_beneficiary_delete_perms": "Beneficiary | Beneficiary Delete",
-  "beneficiary.projects.label": "Projects",
-  "beneficiary.projects.searcherResultsTitle": "{projectsTotalCount} Projects",
-  "beneficiary.projects.searcherAddAction": "Create Project",
-  "beneficiary.project.name": "Name",
-  "beneficiary.project.name.alreadyTaken": "The name is already taken",
-  "beneficiary.project.status": "Status",
-  "beneficiary.project.activity": "Activity",
-  "beneficiary.project.targetBeneficiaries": "Target Beneficiaries",
-  "beneficiary.project.workingDays": "Working Days",
-  "beneficiary.project.pageTitle": "Project details",
-  "beneficiary.project.saveButton.tooltip": "Save",
-  "beneficiary.project.location": "Location",
-  "beneficiary.project.statusPicker": "Status",
-  "beneficiary.project.statusPicker.PREPARATION": "Preparation",
-  "beneficiary.project.statusPicker.IN_PROGRESS": "In Progress",
-  "beneficiary.project.statusPicker.COMPLETED": "Completed",
-  "beneficiary.project.benefitPlan": "Program"
+  "beneficiary.gql_beneficiary_delete_perms": "Beneficiary | Beneficiary Delete"
 }
