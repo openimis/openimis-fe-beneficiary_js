@@ -121,32 +121,5 @@
   "beneficiary.project.statusPicker.PREPARATION": "Preparation",
   "beneficiary.project.statusPicker.IN_PROGRESS": "In Progress",
   "beneficiary.project.statusPicker.COMPLETED": "Completed",
-  "beneficiary.project.benefitPlan": "Program",
-  "project": {
-    "activityPicker" : {
-      "label": "Activity",
-      "null": ""
-    },
-    "create": {
-      "mutationLabel": "Create project {name}"
-    },
-    "update": {
-      "mutationLabel": "Update project {name}"
-    },
-    "delete": {
-      "confirm": {
-        "title": "Delete project {name}?",
-        "message": "Deleting a project does not mean erasing it from OpenIMIS database. The project will only be deactivated and hidden in the default list view."
-      },
-      "mutationLabel": "Delete project {name}"
-    },
-    "undo": {
-      "confirm": {
-        "title": "Restore project {name}?",
-        "message": "This will undo the deletion and make the project active again. Do you want to continue?"
-      },
-      "mutationLabel": "Restore project {name}"
-    },
-    "isDeleted": "Show Deleted"
-  }
+  "beneficiary.project.benefitPlan": "Program"
 }
