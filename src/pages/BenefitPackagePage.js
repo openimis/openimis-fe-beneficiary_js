@@ -15,12 +15,14 @@ import { RIGHT_BENEFICIARY_SEARCH } from '../constants';
 import BenefitPackageIndividualPanel from '../components/BenefitPackageIndividualPanel';
 import {
   fetchBeneficiary,
-  fetchBenefitPlan,
   fetchBeneficiariesGroup,
   clearBeneficiary,
   clearBeneficiariesGroup,
-  clearBenefitPlan,
 } from '../actions';
+import {
+  fetchBenefitPlan,
+  clearBenefitPlan,
+} from '@openimis/fe-benefit_plan';
 import BenefitPackageGroupPanel from '../components/BenefitPackageGroupPanel';
 
 const styles = (theme) => ({

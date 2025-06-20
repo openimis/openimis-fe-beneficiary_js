@@ -6,7 +6,6 @@ import React from 'react';
 import { FormattedMessage } from '@openimis/fe-core';
 import messages_en from './translations/en.json';
 import reducer from './reducer';
-import BenefitPlanMainMenu from './menus/BenefitPlanMainMenu';
 import BenefitPackagePage from './pages/BenefitPackagePage';
 import BeneficiaryStatusPicker from './pickers/BeneficiaryStatusPicker';
 import {
@@ -41,6 +40,7 @@ import {
   BenefitPackageGrievancesTabLabel,
   BenefitPackageGrievancesTabPanel,
 } from './components/BenefitPackageGrievancesTab';
+import BenefitPlanSearcherForEntities from './components/BenefitPlanSearcherForEntities';
 import { BenefitPackageMembersTabLabel, BenefitPackageMembersTabPanel } from './components/BenefitPackageMembersTab';
 import { BeneficiaryTaskItemFormatters, BeneficiaryTaskTableHeaders } from './components/tasks/BeneficiaryTasks';
 import {
@@ -60,7 +60,6 @@ const ROUTE_BENEFIT_PACKAGE = 'benefitPackage';
 const DEFAULT_CONFIG = {
   translations: [{ key: 'en', messages: flatten(messages_en) }],
   reducers: [{ key: 'socialProtection', reducer }],
-  'core.MainMenu': [{ name: 'BenefitPlanMainMenu', component: BenefitPlanMainMenu }],
   'core.Router': [
     {
       path: `${ROUTE_BENEFIT_PLAN}/:benefit_plan_uuid?/${ROUTE_BENEFIT_PACKAGE}/individual/:beneficiary_uuid?`,
@@ -74,6 +73,7 @@ const DEFAULT_CONFIG = {
   refs: [
     { key: 'socialProtection.route.benefitPackage', ref: ROUTE_BENEFIT_PACKAGE },
     { key: 'socialProtection.BeneficiaryStatusPicker', ref: BeneficiaryStatusPicker },
+    { key: 'socialProtection.BenefitPlanSearcherForEntities', ref: BenefitPlanSearcherForEntities },
     { key: 'socialProtection.BeneficiaryPicker', ref: BeneficiaryPicker },
   ],
   'benefitPlan.TabPanel.label': [
@@ -128,4 +128,4 @@ const DEFAULT_CONFIG = {
   ],
 };
 
-export const SocialProtectionModule = (cfg) => ({ ...DEFAULT_CONFIG, ...cfg });
+export const BeneficiaryModule = (cfg) => ({ ...DEFAULT_CONFIG, ...cfg });

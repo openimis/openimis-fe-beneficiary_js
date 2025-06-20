@@ -13,7 +13,7 @@ import {
 import { People as PeopleIcon } from '@material-ui/icons';
 import { injectIntl } from 'react-intl';
 import { withTheme, withStyles } from '@material-ui/core/styles';
-import { EMPTY_STRING, RIGHT_GROUP_UPDATE, SOCIAL_PROTECTION_MODULE } from '../constants';
+import { EMPTY_STRING, RIGHT_GROUP_UPDATE, BENEFICIARY_MODULE } from '../constants';
 
 const styles = (theme) => ({
   tableTitle: theme.table.title,

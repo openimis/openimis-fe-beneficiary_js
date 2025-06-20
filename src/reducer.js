@@ -26,7 +26,6 @@ export const ACTION_TYPE = {
   UPDATE_BENEFICIARY: 'BENEFICIARY_UPDATE_BENEFICIARY',
   BENEFICIARY_EXPORT: 'BENEFICIARY_EXPORT',
   GROUP_BENEFICIARY_EXPORT: 'GROUP_BENEFICIARY_EXPORT',
-  GET_WORKFLOWS: 'GET_WORKFLOWS',
   GET_BENEFIT_PLAN_UPLOAD_HISTORY: 'GET_UPLOAD_HISTORY',
   GET_PENDING_BENEFICIARIES_UPLOAD: 'GET_PENDING_BENEFICIARIES_UPLOAD',
   RESOLVE_TASK: 'TASK_MANAGEMENT_RESOLVE_TASK',
@@ -66,12 +65,6 @@ function reducer(
     groupBeneficiariesPageInfo: {},
     groupBeneficiariesTotalCount: 0,
     errorGroupBeneficiaries: null,
-    fetchingWorkflows: true,
-    fetchedWorkflows: false,
-    workflows: [],
-    workflowsPageInfo: {},
-    workflowsGroupBeneficiaries: null,
-    errorWorkflows: null,
     fetchingBeneficiaryDataUploadHistory: true,
     fetchedBeneficiaryDataUploadHistory: false,
     beneficiaryDataUploadHistory: [],
@@ -114,15 +107,6 @@ function reducer(
         groupBeneficiariesPageInfo: {},
         groupBeneficiariesTotalCount: 0,
         errorGroupBeneficiaries: null,
-      };
-    case REQUEST(ACTION_TYPE.GET_WORKFLOWS):
-      return {
-        ...state,
-        fetchingWorkflows: true,
-        fetchedWorkflows: false,
-        workflows: [],
-        workflowsPageInfo: {},
-        errorWorkflows: null,
       };
     case SUCCESS(ACTION_TYPE.GET_PENDING_BENEFICIARIES_UPLOAD):
       return {
@@ -173,15 +157,6 @@ function reducer(
           ? action.payload.data.groupBeneficiary.totalCount : null,
         errorGroupBeneficiaries: formatGraphQLError(action.payload),
       };
-    case SUCCESS(ACTION_TYPE.GET_WORKFLOWS):
-      return {
-        ...state,
-        fetchingWorkflows: false,
-        fetchedWorkflows: true,
-        workflows: action.payload.data.workflow || [],
-        workflowsPageInfo: pageInfo(action.payload.data.benefitPlan),
-        errorWorkflows: formatGraphQLError(action.payload),
-      };
     case ERROR(ACTION_TYPE.GET_PENDING_BENEFICIARIES_UPLOAD):
       return {
         ...state,
@@ -199,12 +174,6 @@ function reducer(
         ...state,
         fetchingGroupBeneficiaries: false,
         errorGroupBeneficiaries: formatServerError(action.payload),
-      };
-    case ERROR(ACTION_TYPE.GET_WORKFLOWS):
-      return {
-        ...state,
-        fetchingWorkflows: false,
-        errorWorkflows: formatServerError(action.payload),
       };
     case CLEAR(ACTION_TYPE.BENEFICIARY_EXPORT):
       return {

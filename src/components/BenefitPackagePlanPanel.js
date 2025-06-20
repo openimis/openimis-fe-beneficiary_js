@@ -13,9 +13,8 @@ import {
 import PreviewIcon from '@material-ui/icons/ListAlt';
 import { injectIntl } from 'react-intl';
 import { withTheme, withStyles } from '@material-ui/core/styles';
-import BenefitPlanTypePicker from '../pickers/BenefitPlanTypePicker';
 import { RIGHT_BENEFIT_PLAN_UPDATE, RIGHT_SCHEMA_UPDATE } from '../constants';
-import BenefitPlanSchemaModal from '../dialogs/BenefitPlanSchemaModal';
+import { BenefitPlanSchemaModal } from '@openimis/fe-benefit_plan';
 
 const styles = (theme) => ({
   tableTitle: theme.table.title,
@@ -143,8 +142,9 @@ class BenefitPackagePlanPanel extends FormPanel {
                 />
               </Grid>
               <Grid item xs={3} className={classes.item}>
-                <BenefitPlanTypePicker
-                  module="socialProtection"
+                <PublishedComponent
+                  pubRef="benefitPlan.benefitPlanTypePicker"
+                  module="benefitPlan"
                   label="beneficiary.benefitPlanTypePicker"
                   value={!!benefitPlan?.type && benefitPlan.type}
                   readOnly={readOnly}
