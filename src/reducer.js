@@ -1,0 +1,358 @@
+// Disabled due to consistency with other modules
+/* eslint-disable default-param-last */
+
+import {
+  decodeId,
+  dispatchMutationErr,
+  dispatchMutationReq,
+  dispatchMutationResp,
+  formatGraphQLError,
+  formatServerError,
+  pageInfo,
+  parseData,
+} from '@openimis/fe-core';
+import {
+  CLEAR, ERROR, REQUEST, SUCCESS,
+} from './util/action-type';
+
+export const ACTION_TYPE = {
+  MUTATION: 'BENEFICIARY_MUTATION',
+  TASK_MUTATION: 'TASK_MANAGEMENT_MUTATION',
+  SEARCH_BENEFICIARIES: 'BENEFICIARY_BENEFICIARIES',
+  SEARCH_GROUP_BENEFICIARIES: 'GROUP_BENEFICIARY_GROUP_BENEFICIARIES',
+  UPDATE_GROUP_BENEFICIARY: 'GROUP_BENEFICIARY_UPDATE_GROUP_BENEFICIARY',
+  GET_BENEFICIARY: 'BENEFICIARY_BENEFICIARY',
+  GET_BENEFICIARIES_GROUP: 'GROUP_BENEFICIARY_GET_GROUP',
+  UPDATE_BENEFICIARY: 'BENEFICIARY_UPDATE_BENEFICIARY',
+  BENEFICIARY_EXPORT: 'BENEFICIARY_EXPORT',
+  GROUP_BENEFICIARY_EXPORT: 'GROUP_BENEFICIARY_EXPORT',
+  GET_BENEFIT_PLAN_UPLOAD_HISTORY: 'GET_UPLOAD_HISTORY',
+  GET_PENDING_BENEFICIARIES_UPLOAD: 'GET_PENDING_BENEFICIARIES_UPLOAD',
+  RESOLVE_TASK: 'TASK_MANAGEMENT_RESOLVE_TASK',
+};
+
+function reducer(
+  state = {
+    submittingMutation: false,
+    mutation: {},
+    fetchingBeneficiaries: false,
+    fetchedBeneficiaries: false,
+    beneficiaries: [],
+    beneficiariesPageInfo: {},
+    beneficiariesTotalCount: 0,
+    errorBeneficiaries: null,
+    fetchingBeneficiary: false,
+    fetchedBeneficiary: false,
+    beneficiary: null,
+    errorBeneficiary: null,
+    fetchingBeneficiaryExport: true,
+    fetchedBeneficiaryExport: false,
+    beneficiaryExport: null,
+    beneficiaryExportPageInfo: {},
+    errorBeneficiaryExport: null,
+    group: null,
+    fetchingGroup: false,
+    fetchedGroup: false,
+    errorGroup: null,
+    fetchingGroupBeneficiaryExport: true,
+    fetchedGroupBeneficiaryExport: false,
+    groupBeneficiaryExport: null,
+    groupBeneficiaryExportPageInfo: {},
+    errorGroupBeneficiaryExport: null,
+    fetchingGroupBeneficiaries: true,
+    fetchedGroupBeneficiaries: false,
+    groupBeneficiaries: [],
+    groupBeneficiariesPageInfo: {},
+    groupBeneficiariesTotalCount: 0,
+    errorGroupBeneficiaries: null,
+    fetchingBeneficiaryDataUploadHistory: true,
+    fetchedBeneficiaryDataUploadHistory: false,
+    beneficiaryDataUploadHistory: [],
+    beneficiaryDataUploadHistoryPageInfo: {},
+    beneficiaryDataUploadHistoryGroupBeneficiaries: null,
+    errorBeneficiaryDataUploadHistory: null,
+    pendingBeneficiaries: [],
+    fetchingPendingBeneficiaries: true,
+    fetchedPendingBeneficiaries: false,
+    errorPendingBeneficiaries: null,
+    pendingBeneficiariesPageInfo: {},
+  },
+  action,
+) {
+  switch (action.type) {
+    case REQUEST(ACTION_TYPE.GET_PENDING_BENEFICIARIES_UPLOAD):
+      return {
+        ...state,
+        pendingBeneficiaries: [],
+        fetchingPendingBeneficiaries: true,
+        fetchedPendingBeneficiaries: false,
+        errorPendingBeneficiaries: null,
+      };
+    case REQUEST(ACTION_TYPE.SEARCH_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingBeneficiaries: true,
+        fetchedBeneficiaries: false,
+        beneficiaries: [],
+        beneficiariesPageInfo: {},
+        beneficiariesTotalCount: 0,
+        errorBeneficiaries: null,
+      };
+    case REQUEST(ACTION_TYPE.SEARCH_GROUP_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingGroupBeneficiaries: true,
+        fetchedGroupBeneficiaries: false,
+        groupBeneficiaries: [],
+        groupBeneficiariesPageInfo: {},
+        groupBeneficiariesTotalCount: 0,
+        errorGroupBeneficiaries: null,
+      };
+    case SUCCESS(ACTION_TYPE.GET_PENDING_BENEFICIARIES_UPLOAD):
+      return {
+        ...state,
+        pendingBeneficiaries: parseData(action.payload.data.individualDataSource)?.map((i) => ({
+          ...i,
+          id: decodeId(i.id),
+        })),
+        pendingBeneficiariesPageInfo: pageInfo(action.payload.data.individualDataSource),
+        fetchingPendingBeneficiaries: false,
+        fetchedPendingBeneficiaries: true,
+        errorPendingBeneficiaries: formatGraphQLError(action.payload),
+      };
+    case SUCCESS(ACTION_TYPE.SEARCH_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingBeneficiaries: false,
+        fetchedBeneficiaries: true,
+        beneficiaries: parseData(action.payload.data.beneficiary)?.map((beneficiary) => ({
+          ...beneficiary,
+          benefitPlan: { id: beneficiary?.benefitPlan?.id ? decodeId(beneficiary.benefitPlan.id) : null },
+          id: decodeId(beneficiary.id),
+        })),
+        beneficiariesPageInfo: pageInfo(action.payload.data.beneficiary),
+        beneficiariesTotalCount: action.payload.data.beneficiary ? action.payload.data.beneficiary.totalCount : null,
+        errorBeneficiaries: formatGraphQLError(action.payload),
+      };
+    case SUCCESS(ACTION_TYPE.SEARCH_GROUP_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingGroupBeneficiaries: false,
+        fetchedGroupBeneficiaries: true,
+        groupBeneficiaries: parseData(action.payload.data.groupBeneficiary)?.map((groupBeneficiary) => {
+          const response = ({
+            ...groupBeneficiary,
+            id: decodeId(groupBeneficiary.id),
+          });
+          if (response?.group?.id) {
+            response.group = ({
+              ...response.group,
+              id: decodeId(response.group.id),
+            });
+          }
+          return response;
+        }),
+        groupBeneficiariesPageInfo: pageInfo(action.payload.data.groupBeneficiary),
+        groupBeneficiariesTotalCount: action.payload.data.groupBeneficiary
+          ? action.payload.data.groupBeneficiary.totalCount : null,
+        errorGroupBeneficiaries: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.GET_PENDING_BENEFICIARIES_UPLOAD):
+      return {
+        ...state,
+        fetchingPendingBeneficiaries: false,
+        errorFieldsFromBfSchema: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.SEARCH_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingBeneficiaries: false,
+        errorBeneficiaries: formatServerError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.SEARCH_GROUP_BENEFICIARIES):
+      return {
+        ...state,
+        fetchingGroupBeneficiaries: false,
+        errorGroupBeneficiaries: formatServerError(action.payload),
+      };
+    case CLEAR(ACTION_TYPE.BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingBeneficiaryExport: false,
+        fetchedBeneficiaryExport: false,
+        beneficiaryExport: null,
+        beneficiaryExportPageInfo: {},
+        errorBeneficiaryExport: null,
+      };
+    case REQUEST(ACTION_TYPE.BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingBeneficiaryExport: true,
+        fetchedBeneficiaryExport: false,
+        beneficiaryExport: null,
+        beneficiaryExportPageInfo: {},
+        errorBeneficiaryExport: null,
+      };
+    case SUCCESS(ACTION_TYPE.BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingBeneficiaryExport: false,
+        fetchedBeneficiaryExport: true,
+        beneficiaryExport: action.payload.data.beneficiaryExport,
+        beneficiaryExportPageInfo: pageInfo(action.payload.data.beneficiaryExport),
+        errorBeneficiaryExport: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingBeneficiaryExport: false,
+        errorBeneficiaryExport: formatServerError(action.payload),
+      };
+    case REQUEST(ACTION_TYPE.GROUP_BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingGroupBeneficiaryExport: true,
+        fetchedGroupBeneficiaryExport: false,
+        groupBeneficiaryExport: null,
+        groupBeneficiaryExportPageInfo: {},
+        errorGroupBeneficiaryExport: null,
+      };
+    case SUCCESS(ACTION_TYPE.GROUP_BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingGroupBeneficiaryExport: false,
+        fetchedGroupBeneficiaryExport: true,
+        groupBeneficiaryExport: action.payload.data.groupBeneficiaryExport,
+        groupBeneficiaryExportPageInfo: pageInfo(action.payload.data.groupBeneficiaryExport),
+        errorGroupBeneficiaryExport: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.GROUP_BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingGroupBeneficiaryExport: false,
+        errorGroupBeneficiaryExport: formatServerError(action.payload),
+      };
+    case CLEAR(ACTION_TYPE.GROUP_BENEFICIARY_EXPORT):
+      return {
+        ...state,
+        fetchingGroupBeneficiaryExport: false,
+        fetchedGroupBeneficiaryExport: false,
+        groupBeneficiaryExport: null,
+        groupBeneficiaryExportPageInfo: {},
+        errorGroupBeneficiaryExport: null,
+      };
+    case REQUEST(ACTION_TYPE.GET_BENEFICIARY):
+      return {
+        ...state,
+        fetchingBeneficiary: true,
+        fetchedBeneficiary: false,
+        beneficiary: null,
+        errorBeneficiary: null,
+      };
+    case SUCCESS(ACTION_TYPE.GET_BENEFICIARY):
+      return {
+        ...state,
+        fetchingBeneficiary: false,
+        fetchedBeneficiary: true,
+        beneficiary: parseData(action.payload.data.beneficiary).map((beneficiary) => ({
+          ...beneficiary,
+          benefitPlan: { id: beneficiary?.benefitPlan?.id ? decodeId(beneficiary.benefitPlan.id) : null },
+          id: decodeId(beneficiary.id),
+        }))?.[0],
+        error: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.GET_BENEFICIARY):
+      return {
+        ...state,
+        fetchingBeneficiary: false,
+        errorBeneficiary: formatServerError(action.payload),
+      };
+    case CLEAR(ACTION_TYPE.GET_BENEFICIARY):
+      return {
+        ...state,
+        fetchingBeneficiary: false,
+        fetchedBeneficiary: false,
+        beneficiary: null,
+        errorBeneficiary: null,
+      };
+    case REQUEST(ACTION_TYPE.GET_BENEFICIARIES_GROUP):
+      return {
+        ...state,
+        fetchingGroup: true,
+        fetchedGroup: false,
+        group: null,
+        errorGroup: null,
+      };
+    case SUCCESS(ACTION_TYPE.GET_BENEFICIARIES_GROUP):
+      return {
+        ...state,
+        fetchingGroup: false,
+        fetchedGroup: true,
+        group: parseData(action.payload.data.groupBeneficiary)?.map((groupBeneficiary) => ({
+          ...groupBeneficiary,
+          id: decodeId(groupBeneficiary.id),
+        }))?.[0],
+        errorGroup: formatGraphQLError(action.payload),
+      };
+    case ERROR(ACTION_TYPE.GET_BENEFICIARIES_GROUP):
+      return {
+        ...state,
+        fetchingGroup: false,
+        errorGroup: formatServerError(action.payload),
+      };
+    case CLEAR(ACTION_TYPE.GET_BENEFICIARIES_GROUP):
+      return {
+        ...state,
+        fetchingGroup: false,
+        fetchedGroup: false,
+        group: null,
+        errorGroup: null,
+      };
+    case ERROR(ACTION_TYPE.GET_BENEFIT_PLAN_UPLOAD_HISTORY):
+      return {
+        ...state,
+        fetchingBeneficiaryDataUploadHistory: false,
+        errorBeneficiaryDataUploadHistory: formatServerError(action.payload),
+      };
+    case SUCCESS(ACTION_TYPE.GET_BENEFIT_PLAN_UPLOAD_HISTORY):
+      return {
+        ...state,
+        fetchingBeneficiaryDataUploadHistory: false,
+        fetchedBeneficiaryDataUploadHistory: true,
+        beneficiaryDataUploadHistory: parseData(action.payload.data.beneficiaryDataUploadHistory)?.map((data) => ({
+          ...data,
+          id: decodeId(data.id),
+          dataUpload: { ...data.dataUpload, error: JSON.parse(data.dataUpload.error) },
+        })) || [],
+        beneficiaryDataUploadHistoryPageInfo: pageInfo(action.payload.data.beneficiaryDataUploadHistory),
+        errorBeneficiaryDataUploadHistory: formatGraphQLError(action.payload),
+      };
+    case REQUEST(ACTION_TYPE.GET_BENEFIT_PLAN_UPLOAD_HISTORY):
+      return {
+        ...state,
+        fetchingBeneficiaryDataUploadHistory: true,
+        fetchedBeneficiaryDataUploadHistory: false,
+        beneficiaryDataUploadHistory: [],
+        beneficiaryDataUploadHistoryPageInfo: {},
+        errorBeneficiaryDataUploadHistory: null,
+      };
+    case REQUEST(ACTION_TYPE.MUTATION):
+      return dispatchMutationReq(state, action);
+    case ERROR(ACTION_TYPE.MUTATION):
+      return dispatchMutationErr(state, action);
+    case SUCCESS(ACTION_TYPE.UPDATE_BENEFICIARY):
+      return dispatchMutationResp(state, 'updateBeneficiary', action);
+    case SUCCESS(ACTION_TYPE.UPDATE_GROUP_BENEFICIARY):
+      return dispatchMutationResp(state, 'updateGroupBeneficiary', action);
+    case SUCCESS(ACTION_TYPE.RESOLVE_TASK):
+      return dispatchMutationResp(state, 'resolveTask', action);
+    case REQUEST(ACTION_TYPE.TASK_MUTATION):
+      return dispatchMutationReq(state, action);
+    case ERROR(ACTION_TYPE.TASK_MUTATION):
+      return dispatchMutationErr(state, action);
+    default:
+      return state;
+  }
+}
+
+export default reducer;
