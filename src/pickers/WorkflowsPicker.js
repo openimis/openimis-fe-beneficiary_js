@@ -13,7 +13,6 @@ function WorkflowsPicker({
   nullLabel = null,
   withLabel = true,
 }) {
-  console.log('workflows xd', workflows);
   const options = Array.isArray(workflows) && workflows !== undefined ? [
     ...workflows
       .filter((workflow) => !workflow.name.includes('Valid'))
