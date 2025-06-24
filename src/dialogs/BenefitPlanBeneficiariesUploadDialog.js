@@ -21,8 +21,8 @@ import {
 import { withTheme, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { fetchWorkflows } from '@openimis/fe-benefit_plan';
 import WorkflowsPicker from '../pickers/WorkflowsPicker';
-import { fetchWorkflows } from '../actions';
 import {
   BENEFIT_PLAN_TYPE, EMPTY_STRING, MODULE_NAME, PYTHON_DEFAULT_IMPORT_WORKFLOW,
 } from '../constants';
@@ -122,8 +122,8 @@ function BenefitPlanBeneficiariesUploadDialog({
         && !fileFormat.includes('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))
     ) {
       coreAlert(
-        formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload.alert.header.invalid_format'),
-        formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload.alert.message.invalid_format'),
+        formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload.alert.header.invalid_format'),
+        formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload.alert.message.invalid_format'),
       );
       return;
     }
@@ -141,7 +141,7 @@ function BenefitPlanBeneficiariesUploadDialog({
       formData.append('workflow_name', values.workflow.name);
       formData.append('workflow_group', values.workflow.group);
       if (groupAggregationHeader) formData.append('group_aggregation_column', groupAggregationHeader);
-      urlImport = `${baseApiUrl}/social_protection/import_beneficiaries/`;
+      urlImport = `${baseApiUrl}/beneficiary/import_beneficiaries/`;
     }
 
     try {
@@ -157,9 +157,9 @@ function BenefitPlanBeneficiariesUploadDialog({
         return;
       }
 
-      const errorHeader = formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.alert.header');
+      const errorHeader = formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.alert.header');
       const errorMessage = response.status === 409
-        ? formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.alert.sameFileName')
+        ? formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.alert.sameFileName')
         : EMPTY_STRING;
 
       coreAlert(errorHeader, errorMessage);
@@ -180,7 +180,7 @@ function BenefitPlanBeneficiariesUploadDialog({
           marginTop: '6px',
         }}
       >
-        {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload')}
+        {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload')}
       </Button>
       <Dialog
         open={isOpen}
@@ -198,7 +198,7 @@ function BenefitPlanBeneficiariesUploadDialog({
               marginTop: '10px',
             }}
           >
-            {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
+            {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
           </DialogTitle>
           <DialogContent>
             <div
@@ -222,7 +222,7 @@ function BenefitPlanBeneficiariesUploadDialog({
                   </Grid>
                   <Grid item>
                     <WorkflowsPicker
-                      module="socialProtection"
+                      module="beneficiary"
                       label="workflowPicker"
                       onChange={(value) => handleFieldChange('workflows', 'workflow', value)}
                       value={() => getFieldValue()}
@@ -296,7 +296,7 @@ function BenefitPlanBeneficiariesUploadDialog({
                   onClick={() => downloadExampleTemplate(benefitPlan.id)}
                   style={{ marginRight: '8px' }}
                 >
-                  {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.template')}
+                  {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.template')}
                 </Button>
                 <></><></>
                 <Button
@@ -310,7 +310,7 @@ function BenefitPlanBeneficiariesUploadDialog({
                     )
                   }
                 >
-                  {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
+                  {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
                 </Button>
               </div>
             </div>
@@ -324,7 +324,7 @@ function BenefitPlanBeneficiariesUploadDialog({
 const mapStateToProps = (state) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
   confirmed: state.core.confirmed,
-  workflows: state.socialProtection.workflows,
+  workflows: state.benefitPlan.workflows,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

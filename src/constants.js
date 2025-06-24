@@ -1,4 +1,4 @@
-export const SOCIAL_PROTECTION_MAIN_MENU_CONTRIBUTION_KEY = 'socialProtection.MainMenu';
+export const SOCIAL_PROTECTION_MAIN_MENU_CONTRIBUTION_KEY = 'beneficiary.MainMenu';
 export const CONTAINS_LOOKUP = 'Icontains';
 export const DEFAULT_DEBOUNCE_TIME = 500;
 export const DEFAULT_PAGE_SIZE = 10;
@@ -40,7 +40,7 @@ export const BENEFIT_PACKAGE_GRIEVANCES_TAB_VALUE = 'benefitPackageGrievancesTab
 export const BENEFIT_PACKAGE_TABS_LABEL_CONTRIBUTION_KEY = 'benefitPackage.TabPanel.label';
 export const BENEFIT_PACKAGE_TABS_PANEL_CONTRIBUTION_KEY = 'benefitPackage.TabPanel.panel';
 
-export const SOCIAL_PROTECTION_ROUTE_BENEFIT_PLAN = 'socialProtection.route.benefitPlan';
+export const SOCIAL_PROTECTION_ROUTE_BENEFIT_PLAN = 'beneficiary.route.benefitPlan';
 
 export const TASK_STATUS = {
   RECEIVED: 'RECEIVED',

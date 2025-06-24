@@ -41,7 +41,7 @@ function BenefitPackageTabFilters({
     <Grid container className={classes.form}>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.firstName"
           value={filterTextFieldValue('individual_FirstName')}
           onChange={onChangeStringFilter('individual_FirstName', CONTAINS_LOOKUP)}
@@ -49,7 +49,7 @@ function BenefitPackageTabFilters({
       </Grid>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.lastName"
           value={filterTextFieldValue('individual_LastName')}
           onChange={onChangeStringFilter('individual_LastName', CONTAINS_LOOKUP)}
@@ -58,7 +58,7 @@ function BenefitPackageTabFilters({
       <Grid item xs={2} className={classes.item}>
         <PublishedComponent
           pubRef="core.DatePicker"
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.dob"
           value={filterValue('individual_Dob')}
           onChange={(v) => onChangeFilters([
@@ -74,7 +74,7 @@ function BenefitPackageTabFilters({
         <BeneficiaryStatusPicker
           label="beneficiary.beneficiaryPicker.label"
           withNull
-          nullLabel={formatMessage(intl, 'socialProtection', 'any')}
+          nullLabel={formatMessage(intl, 'beneficiary', 'any')}
           value={filterValue('status')}
           onChange={(value) => onChangeFilters([
             {

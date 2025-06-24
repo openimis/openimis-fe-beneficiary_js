@@ -9,7 +9,7 @@ function BeneficiaryStatusPicker(props) {
   } = props;
   return (
     <ConstantBasedPicker
-      module="socialProtection"
+      module="beneficiary"
       label="beneficiary.beneficiaryStatusPicker"
       constants={BENEFICIARY_STATUS_LIST}
       required={required}

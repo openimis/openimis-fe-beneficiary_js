@@ -2,11 +2,11 @@ import React from 'react';
 import { FormattedMessage } from '@openimis/fe-core';
 
 const CalculationSocialProtectionTableHeaders = () => [
-  <FormattedMessage module="socialProtection" id="bill.code" />,
-  <FormattedMessage module="socialProtection" id="bill.name" />,
-  <FormattedMessage module="socialProtection" id="bill.totalAmount" />,
-  <FormattedMessage module="socialProtection" id="bill.dateValidFrom" />,
-  <FormattedMessage module="socialProtection" id="bill.dateValidTo" />,
+  <FormattedMessage module="beneficiary" id="bill.code" />,
+  <FormattedMessage module="beneficiary" id="bill.name" />,
+  <FormattedMessage module="beneficiary" id="bill.totalAmount" />,
+  <FormattedMessage module="beneficiary" id="bill.dateValidFrom" />,
+  <FormattedMessage module="beneficiary" id="bill.dateValidTo" />,
 ];
 
 const CalculationSocialProtectionItemFormatters = () => [

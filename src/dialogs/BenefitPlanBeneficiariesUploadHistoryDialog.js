@@ -85,7 +85,7 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
           marginTop: '6px',
         }}
       >
-        {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.uploadHistory')}
+        {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.uploadHistory')}
       </Button>
       <Dialog
         open={isOpen}
@@ -107,7 +107,7 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
             marginTop: '10px',
           }}
         >
-          {formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
+          {formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiaries.upload.label')}
         </DialogTitle>
         <DialogContent>
           <div
@@ -121,56 +121,56 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.workflow',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.dateCreated',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.sourceType',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.sourceName',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.status',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.user',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.error',
                       )}
                     </TableCell>
                     <TableCell>
                       {formatMessage(
                         intl,
-                        'socialProtection',
+                        'beneficiary',
                         'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.validationErrors',
                       )}
                     </TableCell>
@@ -215,7 +215,7 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
                           >
                             {formatMessage(
                               intl,
-                              'socialProtection',
+                              'beneficiary',
                               'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.downloadInvalidItems',
                             )}
                           </Button>
@@ -233,7 +233,7 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
                         >
                           {formatMessage(
                             intl,
-                            'socialProtection',
+                            'beneficiary',
                             'benefitPlan.benefitPlanBeneficiaries.uploadHistoryTable.downloadUploadFile',
                           )}
                         </Button>
@@ -278,9 +278,9 @@ function BenefitPlanBeneficiariesUploadHistoryDialog({
 const mapStateToProps = (state) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
   confirmed: state.core.confirmed,
-  history: state.socialProtection.beneficiaryDataUploadHistory,
-  fetchedHistory: state.socialProtection.fetchedBeneficiaryDataUploadHistory,
-  fetchingHistory: state.socialProtection.fetchingBeneficiaryDataUploadHistory,
+  history: state.beneficiary.beneficiaryDataUploadHistory,
+  fetchedHistory: state.beneficiary.fetchedBeneficiaryDataUploadHistory,
+  fetchingHistory: state.beneficiary.fetchingBeneficiaryDataUploadHistory,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

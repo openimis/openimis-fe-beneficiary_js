@@ -19,6 +19,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PreviewIcon from '@material-ui/icons/ListAlt';
 import {
+  fetchBenefitPlans,
+  deleteBenefitPlan,
+  BenefitPlanFilter,
+} from '@openimis/fe-benefit_plan';
+import {
   DEFAULT_PAGE_SIZE,
   RIGHT_BENEFIT_PLAN_DELETE,
   RIGHT_BENEFIT_PLAN_UPDATE,
@@ -28,11 +33,6 @@ import {
   fetchBeneficiariesGroup,
   fetchBeneficiary,
 } from '../actions';
-import {
-  fetchBenefitPlans,
-  deleteBenefitPlan,
-} from '@openimis/fe-benefit_plan';
-import { BenefitPlanFilter } from '@openimis/fe-benefit_plan';
 
 function BenefitPlanSearcherForEntities({
   intl,
@@ -72,11 +72,11 @@ function BenefitPlanSearcherForEntities({
   const errorState = (errorGroup || errorBeneficiary) && errorBenefitPlans;
 
   const openDeleteBenefitPlanConfirmDialog = () => coreConfirm(
-    formatMessageWithValues(intl, 'socialProtection', 'benefitPlan.delete.confirm.title', {
+    formatMessageWithValues(intl, 'beneficiary', 'benefitPlan.delete.confirm.title', {
       code: benefitPlanToDelete.code,
       name: benefitPlanToDelete.name,
     }),
-    formatMessage(intl, 'socialProtection', 'benefitPlan.delete.confirm.message'),
+    formatMessage(intl, 'beneficiary', 'benefitPlan.delete.confirm.message'),
   );
 
   useEffect(() => benefitPlanToDelete && openDeleteBenefitPlanConfirmDialog(), [benefitPlanToDelete]);
@@ -85,7 +85,7 @@ function BenefitPlanSearcherForEntities({
     if (benefitPlanToDelete && confirmed) {
       deleteBenefitPlan(
         benefitPlanToDelete,
-        formatMessageWithValues(intl, 'socialProtection', 'benefitPlan.delete.mutationLabel', {
+        formatMessageWithValues(intl, 'beneficiary', 'benefitPlan.delete.mutationLabel', {
           id: benefitPlanToDelete?.id,
         }),
       );
@@ -133,27 +133,27 @@ function BenefitPlanSearcherForEntities({
   };
 
   function benefitPlanUpdatePageUrl(benefitPlan) {
-    return (`${modulesManager.getRef('socialProtection.route.benefitPlan')}`
+    return (`${modulesManager.getRef('beneficiary.route.benefitPlan')}`
         + `/${benefitPlan?.id}`);
   }
 
   const openIndividualBenefitPackage = (benefitPlan) => history.push(
-    `/${modulesManager.getRef('socialProtection.route.benefitPlan')}/${benefitPlan?.uuid}/`
-  + `${modulesManager.getRef('socialProtection.route.benefitPackage')}`
+    `/${modulesManager.getRef('beneficiary.route.benefitPlan')}/${benefitPlan?.uuid}/`
+  + `${modulesManager.getRef('beneficiary.route.benefitPackage')}`
       + `/individual/${beneficiary?.id}`,
   );
 
   const openGroupBenefitPackage = (benefitPlan) => {
     history.push(
-      `/${modulesManager.getRef('socialProtection.route.benefitPlan')}/${benefitPlan?.id}/`
-  + `${modulesManager.getRef('socialProtection.route.benefitPackage')}`
+      `/${modulesManager.getRef('beneficiary.route.benefitPlan')}/${benefitPlan?.id}/`
+  + `${modulesManager.getRef('beneficiary.route.benefitPackage')}`
   + `/group/${beneficiaryGroup?.id}`,
     );
   };
 
   const onDoubleClick = (benefitPlan, newTab = false) => rights.includes(RIGHT_BENEFIT_PLAN_UPDATE)
       && !deletedBenefitPlanUuids.includes(benefitPlan.id)
-      && historyPush(modulesManager, history, 'socialProtection.route.benefitPlan', [benefitPlan?.id], newTab);
+      && historyPush(modulesManager, history, 'beneficiary.route.benefitPlan', [benefitPlan?.id], newTab);
 
   const onDelete = (benefitPlan) => setBenefitPlanToDelete(benefitPlan);
 
@@ -171,7 +171,7 @@ function BenefitPlanSearcherForEntities({
         formatters.push((benefitPlan) => (
           <Tooltip title={formatMessage(
             intl,
-            'socialProtection',
+            'beneficiary',
             'benefitPackage.overviewButtonTooltip',
           )}
           >
@@ -186,7 +186,7 @@ function BenefitPlanSearcherForEntities({
         formatters.push((benefitPlan) => (
           <Tooltip title={formatMessage(
             intl,
-            'socialProtection',
+            'beneficiary',
             'benefitPackage.overviewButtonTooltip',
           )}
           >
@@ -280,14 +280,14 @@ function BenefitPlanSearcherForEntities({
 
   return (
     <Searcher
-      module="socialProtection"
+      module="beneficiary"
       FilterPane={benefitPlanFilter}
       fetch={fetch}
       items={benefitPlans}
       itemsPageInfo={benefitPlansPageInfo}
       fetchedItems={fetchingState}
       errorItems={errorState}
-      tableTitle={formatMessageWithValues(intl, 'socialProtection', 'benefitPlan.searcherResultsTitle', {
+      tableTitle={formatMessageWithValues(intl, 'beneficiary', 'benefitPlan.searcherResultsTitle', {
         benefitPlansTotalCount,
       })}
       headers={headers}
@@ -307,21 +307,21 @@ function BenefitPlanSearcherForEntities({
 
 const mapStateToProps = (state) => ({
   confirmed: state.core.confirmed,
-  submittingMutation: state.socialProtection.submittingMutation,
-  mutation: state.socialProtection.mutation,
-  fetchingBenefitPlans: state.socialProtection.fetchingBenefitPlans,
-  errorBenefitPlans: state.socialProtection.errorBenefitPlans,
-  benefitPlans: state.socialProtection.benefitPlans,
-  benefitPlansPageInfo: state.socialProtection.benefitPlansPageInfo,
-  benefitPlansTotalCount: state.socialProtection.benefitPlansTotalCount,
-  beneficiaryGroup: state.socialProtection.group,
-  fetchingGroup: state.socialProtection.fetchingGroup,
-  fetchedGroup: state.socialProtection.fetchedGroup,
-  errorGroup: state.socialProtection.errorGroup,
-  beneficiary: state.socialProtection.beneficiary,
-  fetchingBeneficiary: state.socialProtection.fetchingBeneficiary,
-  fetchedBeneficiary: state.socialProtection.fetchedBeneficiary,
-  errorBeneficiary: state.socialProtection.errorBeneficiary,
+  submittingMutation: state.beneficiary.submittingMutation,
+  mutation: state.beneficiary.mutation,
+  fetchingBenefitPlans: state.beneficiary.fetchingBenefitPlans,
+  errorBenefitPlans: state.beneficiary.errorBenefitPlans,
+  benefitPlans: state.beneficiary.benefitPlans,
+  benefitPlansPageInfo: state.beneficiary.benefitPlansPageInfo,
+  benefitPlansTotalCount: state.beneficiary.benefitPlansTotalCount,
+  beneficiaryGroup: state.beneficiary.group,
+  fetchingGroup: state.beneficiary.fetchingGroup,
+  fetchedGroup: state.beneficiary.fetchedGroup,
+  errorGroup: state.beneficiary.errorGroup,
+  beneficiary: state.beneficiary.beneficiary,
+  fetchingBeneficiary: state.beneficiary.fetchingBeneficiary,
+  fetchedBeneficiary: state.beneficiary.fetchedBeneficiary,
+  errorBeneficiary: state.beneficiary.errorBeneficiary,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(

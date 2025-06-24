@@ -13,7 +13,7 @@ function BenefitPackageGrievancesTabLabel({
       className={tabStyle(BENEFIT_PACKAGE_GRIEVANCES_TAB_VALUE)}
       selected={isSelected(BENEFIT_PACKAGE_GRIEVANCES_TAB_VALUE)}
       value={BENEFIT_PACKAGE_GRIEVANCES_TAB_VALUE}
-      label={formatMessage(intl, 'socialProtection', 'benefitPackage.benefitPackageGrievancesTab.label')}
+      label={formatMessage(intl, 'beneficiary', 'benefitPackage.benefitPackageGrievancesTab.label')}
     />
   );
 }
@@ -22,7 +22,7 @@ function BenefitPackageGrievancesTabPanel({ value }) {
   return (
     <PublishedComponent
       pubRef="policyHolder.TabPanel"
-      module="socialProtection"
+      module="beneficiary"
       index={BENEFIT_PACKAGE_GRIEVANCES_TAB_VALUE}
       value={value}
     >

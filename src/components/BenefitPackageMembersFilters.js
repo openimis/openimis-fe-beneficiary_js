@@ -40,7 +40,7 @@ function BenefitPackageMembersFilters({
     <Grid container className={classes.form}>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.firstName"
           value={filterTextFieldValue('firstName')}
           onChange={onChangeStringFilter('firstName', CONTAINS_LOOKUP)}
@@ -48,7 +48,7 @@ function BenefitPackageMembersFilters({
       </Grid>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.lastName"
           value={filterTextFieldValue('lastName')}
           onChange={onChangeStringFilter('lastName', CONTAINS_LOOKUP)}
@@ -57,7 +57,7 @@ function BenefitPackageMembersFilters({
       <Grid item xs={2} className={classes.item}>
         <PublishedComponent
           pubRef="core.DatePicker"
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.dob"
           value={filterValue('dob')}
           onChange={(v) => onChangeFilters([

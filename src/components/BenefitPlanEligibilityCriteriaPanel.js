@@ -36,7 +36,7 @@ function BenefitPlanEligibilityCriteriaPanel({
   const moduleFilterName = 'individual';
   const objectFilterType = 'Individual';
   const modulesManager = useModulesManager();
-  const { formatMessage, formatMessageWithValues } = useTranslations('socialProtection', modulesManager);
+  const { formatMessage, formatMessageWithValues } = useTranslations('beneficiary', modulesManager);
   const customFilters = useSelector((state) => state.core.customFilters);
   const [filters, setFilters] = useState([]);
 

@@ -68,16 +68,16 @@ function BenefitPlanBeneficiariesSearcher({
 
   const headers = () => {
     const baseHeaders = [
-      'socialProtection.beneficiary.firstName',
-      'socialProtection.beneficiary.lastName',
-      'socialProtection.beneficiary.dob',
+      'beneficiary.beneficiary.firstName',
+      'beneficiary.beneficiary.lastName',
+      'beneficiary.beneficiary.dob',
     ];
 
     baseHeaders.push(...Array.from({ length: LOC_LEVELS }, (_, i) => `location.locationType.${i}`));
-    baseHeaders.push('socialProtection.beneficiary.status');
+    baseHeaders.push('beneficiary.beneficiary.status');
 
     if (status) {
-      baseHeaders.push('socialProtection.beneficiary.isEligible');
+      baseHeaders.push('beneficiary.beneficiary.isEligible');
     }
 
     baseHeaders.push('');
@@ -86,7 +86,7 @@ function BenefitPlanBeneficiariesSearcher({
   };
 
   const openBenefitPackage = (beneficiary) => history.push(`${benefitPlan?.id}/`
-      + `${modulesManager.getRef('socialProtection.route.benefitPackage')}`
+      + `${modulesManager.getRef('beneficiary.route.benefitPackage')}`
       + `/individual/${beneficiary?.id}`);
 
   const addUpdatedBeneficiary = (beneficiary, status) => {
@@ -111,7 +111,7 @@ function BenefitPlanBeneficiariesSearcher({
       const editedBeneficiary = { ...beneficiary, status };
       updateBeneficiary(
         editedBeneficiary,
-        formatMessageWithValues(intl, 'socialProtection', 'beneficiary.update.mutationLabel', {
+        formatMessageWithValues(intl, 'beneficiary', 'beneficiary.update.mutationLabel', {
           id: beneficiary.individual.id,
         }),
       );
@@ -145,8 +145,8 @@ function BenefitPlanBeneficiariesSearcher({
     }
 
     if (status) {
-      const yes = formatMessage(intl, 'socialProtection', 'beneficiary.isEligible.true');
-      const no = formatMessage(intl, 'socialProtection', 'beneficiary.isEligible.false');
+      const yes = formatMessage(intl, 'beneficiary', 'beneficiary.isEligible.true');
+      const no = formatMessage(intl, 'beneficiary', 'beneficiary.isEligible.false');
       result.push((beneficiary) => (
         beneficiary.isEligible
           ? <Tooltip title={yes} placement="right"><CheckCircleIcon aria-label={yes} /></Tooltip>
@@ -159,7 +159,7 @@ function BenefitPlanBeneficiariesSearcher({
         <Tooltip
           title={formatMessage(
             intl,
-            'socialProtection',
+            'beneficiary',
             'benefitPackage.overviewButtonTooltip',
           )}
         >
@@ -218,7 +218,7 @@ function BenefitPlanBeneficiariesSearcher({
     if (beneficiaryExport) {
       downloadExport(
         beneficiaryExport,
-        `${formatMessage(intl, 'socialProtection', 'export.filename.beneficiaries')}.csv`,
+        `${formatMessage(intl, 'beneficiary', 'export.filename.beneficiaries')}.csv`,
       )();
       clearBeneficiaryExport();
     }
@@ -255,7 +255,7 @@ function BenefitPlanBeneficiariesSearcher({
         fetchingItems={fetchingBeneficiaries}
         fetchedItems={fetchedBeneficiaries}
         errorItems={errorBeneficiaries}
-        tableTitle={formatMessageWithValues(intl, 'socialProtection', 'beneficiaries.searcherResultsTitle', {
+        tableTitle={formatMessageWithValues(intl, 'beneficiary', 'beneficiaries.searcherResultsTitle', {
           beneficiariesTotalCount,
         })}
         exportable
@@ -269,11 +269,11 @@ function BenefitPlanBeneficiariesSearcher({
         ]}
         exportFieldsColumns={{
           id: 'ID',
-          individual__first_name: formatMessage(intl, 'socialProtection', 'export.firstName'),
-          individual__last_name: formatMessage(intl, 'socialProtection', 'export.lastName'),
-          individual__dob: formatMessage(intl, 'socialProtection', 'export.dob'),
+          individual__first_name: formatMessage(intl, 'beneficiary', 'export.firstName'),
+          individual__last_name: formatMessage(intl, 'beneficiary', 'export.lastName'),
+          individual__dob: formatMessage(intl, 'beneficiary', 'export.dob'),
         }}
-        exportFieldLabel={formatMessage(intl, 'socialProtection', 'export.label')}
+        exportFieldLabel={formatMessage(intl, 'beneficiary', 'export.label')}
         headers={headers}
         itemFormatters={itemFormatters}
         sorts={sorts}
@@ -304,7 +304,7 @@ function BenefitPlanBeneficiariesSearcher({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setFailedExport(false)} color="primary" variant="contained">
-              {formatMessage(intl, 'socialProtection', 'ok')}
+              {formatMessage(intl, 'beneficiary', 'ok')}
             </Button>
           </DialogActions>
         </Dialog>
@@ -316,18 +316,18 @@ function BenefitPlanBeneficiariesSearcher({
 
 const mapStateToProps = (state) => ({
   rights: state.core?.user?.i_user?.rights ?? [],
-  fetchingBeneficiaries: state.socialProtection.fetchingBeneficiaries,
-  fetchedBeneficiaries: state.socialProtection.fetchedBeneficiaries,
-  errorBeneficiaries: state.socialProtection.errorBeneficiaries,
-  beneficiaries: state.socialProtection.beneficiaries,
-  beneficiariesPageInfo: state.socialProtection.beneficiariesPageInfo,
-  beneficiariesTotalCount: state.socialProtection.beneficiariesTotalCount,
+  fetchingBeneficiaries: state.beneficiary.fetchingBeneficiaries,
+  fetchedBeneficiaries: state.beneficiary.fetchedBeneficiaries,
+  errorBeneficiaries: state.beneficiary.errorBeneficiaries,
+  beneficiaries: state.beneficiary.beneficiaries,
+  beneficiariesPageInfo: state.beneficiary.beneficiariesPageInfo,
+  beneficiariesTotalCount: state.beneficiary.beneficiariesTotalCount,
   selectedFilters: state.core.filtersCache.benefitPlanBeneficiaryFilterCache,
-  fetchingBeneficiaryExport: state.socialProtection.fetchingBeneficiaryExport,
-  fetchedBeneficiaryExport: state.socialProtection.fetchedBeneficiaryExport,
-  beneficiaryExport: state.socialProtection.beneficiaryExport,
-  beneficiaryExportPageInfo: state.socialProtection.beneficiaryExportPageInfo,
-  errorBeneficiaryExport: state.socialProtection.errorBeneficiaryExport,
+  fetchingBeneficiaryExport: state.beneficiary.fetchingBeneficiaryExport,
+  fetchedBeneficiaryExport: state.beneficiary.fetchedBeneficiaryExport,
+  beneficiaryExport: state.beneficiary.beneficiaryExport,
+  beneficiaryExportPageInfo: state.beneficiary.beneficiaryExportPageInfo,
+  errorBeneficiaryExport: state.beneficiary.errorBeneficiaryExport,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

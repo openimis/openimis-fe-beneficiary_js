@@ -31,7 +31,7 @@ function BenefitPlanGroupBeneficiariesFilter({
     <Grid container className={classes.form}>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="group.code"
           value={filterTextFieldValue('group_Code_Icontains')}
           onChange={onChangeStringFilter('group_Code_Icontains')}
@@ -56,7 +56,7 @@ function BenefitPlanGroupBeneficiariesFilter({
       {status && (
         <Grid item xs={2} className={classes.item}>
           <ConstantBasedPicker
-            module="socialProtection"
+            module="beneficiary"
             label="beneficiary.isEligible"
             constants={['true', 'false']}
             withNull

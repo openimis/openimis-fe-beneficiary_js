@@ -13,8 +13,8 @@ import {
 import PreviewIcon from '@material-ui/icons/ListAlt';
 import { injectIntl } from 'react-intl';
 import { withTheme, withStyles } from '@material-ui/core/styles';
-import { RIGHT_BENEFIT_PLAN_UPDATE, RIGHT_SCHEMA_UPDATE } from '../constants';
 import { BenefitPlanSchemaModal } from '@openimis/fe-benefit_plan';
+import { RIGHT_BENEFIT_PLAN_UPDATE, RIGHT_SCHEMA_UPDATE } from '../constants';
 
 const styles = (theme) => ({
   tableTitle: theme.table.title,
@@ -45,7 +45,7 @@ function renderHeadPanelTitle(classes, benefitPlanTitle) {
 }
 
 function renderHeadPanelSubtitle(rights, intl, history, modulesManager, classes, benefitPlan) {
-  const openBenefitPlan = () => history.push(`/${modulesManager.getRef('socialProtection.route.benefitPlan')}`
+  const openBenefitPlan = () => history.push(`/${modulesManager.getRef('beneficiary.route.benefitPlan')}`
   + `/${benefitPlan?.id}`);
 
   return (
@@ -54,11 +54,11 @@ function renderHeadPanelSubtitle(rights, intl, history, modulesManager, classes,
         <Typography>
           <Grid item>
             <FormattedMessage
-              module="socialProtection"
-              id="socialProtection.benefitPackage.BenefitPlanDetailPanel.title"
+              module="beneficiary"
+              id="beneficiary.benefitPackage.BenefitPlanDetailPanel.title"
             />
             { !!benefitPlan?.id && (
-            <Tooltip title={formatMessage(intl, 'socialProtection', 'benefitPackage.BenefitPlanDetailPanel.tooltip')}>
+            <Tooltip title={formatMessage(intl, 'beneficiary', 'benefitPackage.BenefitPlanDetailPanel.tooltip')}>
               <IconButton onClick={openBenefitPlan} disabled={!rights.includes(RIGHT_BENEFIT_PLAN_UPDATE)}>
                 <PreviewIcon />
               </IconButton>
@@ -91,7 +91,7 @@ class BenefitPackagePlanPanel extends FormPanel {
             <Grid container className={classes.item}>
               <Grid item xs={3} className={classes.item}>
                 <TextInput
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.code"
                   value={benefitPlan?.code ?? ''}
                   readOnly={readOnly}
@@ -99,7 +99,7 @@ class BenefitPackagePlanPanel extends FormPanel {
               </Grid>
               <Grid item xs={3} className={classes.item}>
                 <TextInput
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.name"
                   value={benefitPlan?.name ?? ''}
                   readOnly={readOnly}
@@ -108,7 +108,7 @@ class BenefitPackagePlanPanel extends FormPanel {
               <Grid item xs={3} className={classes.item}>
                 <PublishedComponent
                   pubRef="core.DatePicker"
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.dateValidFrom"
                   value={benefitPlan?.dateValidFrom ?? ''}
                   readOnly={readOnly}
@@ -117,7 +117,7 @@ class BenefitPackagePlanPanel extends FormPanel {
               <Grid item xs={3} className={classes.item}>
                 <PublishedComponent
                   pubRef="core.DatePicker"
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.dateValidTo"
                   value={benefitPlan?.dateValidTo ?? ''}
                   readOnly={readOnly}
@@ -127,7 +127,7 @@ class BenefitPackagePlanPanel extends FormPanel {
                 <NumberInput
                   min={0}
                   displayZero
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.maxBeneficiaries"
                   value={benefitPlan?.maxBeneficiaries ?? ''}
                   readOnly={readOnly}
@@ -135,7 +135,7 @@ class BenefitPackagePlanPanel extends FormPanel {
               </Grid>
               <Grid item xs={3} className={classes.item}>
                 <TextInput
-                  module="socialProtection"
+                  module="beneficiary"
                   label="benefitPlan.institution"
                   value={benefitPlan?.institution ?? ''}
                   readOnly={readOnly}

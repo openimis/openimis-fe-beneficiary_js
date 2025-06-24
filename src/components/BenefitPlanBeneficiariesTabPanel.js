@@ -31,7 +31,7 @@ function BenefitPlanBeneficiariesTabLabel({
       className={tabStyle(BENEFIT_PLAN_BENEFICIARIES_TAB_WRAPPER_VALUE)}
       selected={isSelected(BENEFIT_PLAN_BENEFICIARIES_TAB_WRAPPER_VALUE)}
       value={BENEFIT_PLAN_BENEFICIARIES_TAB_WRAPPER_VALUE}
-      label={formatMessage(intl, 'socialProtection', 'benefitPlan.beneficiaries.tabGroup.label')}
+      label={formatMessage(intl, 'beneficiary', 'benefitPlan.beneficiaries.tabGroup.label')}
     />
   );
 }

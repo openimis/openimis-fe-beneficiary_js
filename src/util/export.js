@@ -18,14 +18,14 @@ function downloadFile(url, filename) {
 }
 
 export function downloadInvalidItems(uploadId) {
-  const baseUrl = `${window.location.origin}${baseApiUrl}/social_protection/download_invalid_items/`;
+  const baseUrl = `${window.location.origin}${baseApiUrl}/beneficiary/download_invalid_items/`;
   const queryParams = new URLSearchParams({ upload_id: uploadId });
   const url = `${baseUrl}?${queryParams.toString()}`;
   downloadFile(url, 'invalid_items.csv');
 }
 
 export function downloadBeneficiaryUploadFile(benefitPlanId, filename) {
-  const baseUrl = `${window.location.origin}${baseApiUrl}/social_protection/download_beneficiary_upload_file/`;
+  const baseUrl = `${window.location.origin}${baseApiUrl}/beneficiary/download_beneficiary_upload_file/`;
   const queryParams = new URLSearchParams({ benefit_plan_id: benefitPlanId, filename });
   const url = `${baseUrl}?${queryParams.toString()}`;
   downloadFile(url, filename);
@@ -33,7 +33,7 @@ export function downloadBeneficiaryUploadFile(benefitPlanId, filename) {
 
 export default function downloadTemplate(benefitPlan) {
   const url = new URL(
-    `${window.location.origin}${baseApiUrl}/social_protection/download_template_benefit_plan_file/`,
+    `${window.location.origin}${baseApiUrl}/beneficiary/download_template_benefit_plan_file/`,
   );
   url.searchParams.append('benefit_plan_uuid', benefitPlan);
 

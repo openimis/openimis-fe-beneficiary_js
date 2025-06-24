@@ -78,7 +78,7 @@ function BenefitPackageMembersSearcher({
     ];
     if (rights.includes(RIGHT_INDIVIDUAL_UPDATE)) {
       formatters.push((individual) => (
-        <Tooltip title={formatMessage(intl, 'socialProtection', 'benefitPackage.members.tooltip.viewDetails')}>
+        <Tooltip title={formatMessage(intl, 'beneficiary', 'benefitPackage.members.tooltip.viewDetails')}>
           <IconButton
             onClick={() => openIndividual(individual)}
           >
@@ -134,7 +134,7 @@ function BenefitPackageMembersSearcher({
 
   useEffect(() => {
     if (membersExport) {
-      downloadExport(membersExport, `${formatMessage(intl, 'socialProtection', 'export.filename')}.csv`)();
+      downloadExport(membersExport, `${formatMessage(intl, 'beneficiary', 'export.filename')}.csv`)();
       dispatch(clearIndividualExportRef());
     }
 
@@ -158,7 +158,7 @@ function BenefitPackageMembersSearcher({
         errorItems={errorMembers}
         tableTitle={formatMessageWithValues(
           intl,
-          'socialProtection',
+          'beneficiary',
           'beneficiaries.members.searcherResultsTitle',
           {
             individualsTotalCount: membersTotalCount,
@@ -206,7 +206,7 @@ function BenefitPackageMembersSearcher({
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setFailedExport(false)} color="primary" variant="contained">
-              {formatMessage(intl, 'socialProtection', 'ok')}
+              {formatMessage(intl, 'beneficiary', 'ok')}
             </Button>
           </DialogActions>
         </Dialog>

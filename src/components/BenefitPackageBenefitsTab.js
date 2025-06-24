@@ -12,7 +12,7 @@ function BenefitPackageBenefitsTabLabel({
       className={tabStyle(BENEFIT_PACKAGE_BENEFITS_TAB_VALUE)}
       selected={isSelected(BENEFIT_PACKAGE_BENEFITS_TAB_VALUE)}
       value={BENEFIT_PACKAGE_BENEFITS_TAB_VALUE}
-      label={formatMessage(intl, 'socialProtection', 'benefitPackage.benefitPackageBenefitsTab.label')}
+      label={formatMessage(intl, 'beneficiary', 'benefitPackage.benefitPackageBenefitsTab.label')}
     />
   );
 }
@@ -23,7 +23,7 @@ function BenefitPackageBenefitsTabPanel({
   return (
     <PublishedComponent
       pubRef="policyHolder.TabPanel"
-      module="socialProtection"
+      module="beneficiary"
       index={BENEFIT_PACKAGE_BENEFITS_TAB_VALUE}
       value={value}
     >

@@ -13,7 +13,7 @@ import BeneficiaryStatusPicker from '../pickers/BeneficiaryStatusPicker';
 function BenefitPlanBeneficiariesFilter({
   intl, classes, filters, onChangeFilters, readOnly, status,
 }) {
-  const any = formatMessage(intl, 'socialProtection', 'any');
+  const any = formatMessage(intl, 'beneficiary', 'any');
 
   const debouncedOnChangeFilters = _debounce(onChangeFilters, DEFAULT_DEBOUNCE_TIME);
 
@@ -45,7 +45,7 @@ function BenefitPlanBeneficiariesFilter({
     <Grid container className={classes.form}>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.firstName"
           value={filterTextFieldValue('individual_FirstName')}
           onChange={onChangeStringFilter('individual_FirstName', CONTAINS_LOOKUP)}
@@ -53,7 +53,7 @@ function BenefitPlanBeneficiariesFilter({
       </Grid>
       <Grid item xs={2} className={classes.item}>
         <TextInput
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.lastName"
           value={filterTextFieldValue('individual_LastName')}
           onChange={onChangeStringFilter('individual_LastName', CONTAINS_LOOKUP)}
@@ -62,7 +62,7 @@ function BenefitPlanBeneficiariesFilter({
       <Grid item xs={2} className={classes.item}>
         <PublishedComponent
           pubRef="core.DatePicker"
-          module="socialProtection"
+          module="beneficiary"
           label="beneficiary.dob"
           value={filterValue('individual_Dob')}
           onChange={(v) => onChangeFilters([
@@ -93,7 +93,7 @@ function BenefitPlanBeneficiariesFilter({
       {status && (
         <Grid item xs={2} className={classes.item}>
           <ConstantBasedPicker
-            module="socialProtection"
+            module="beneficiary"
             label="beneficiary.isEligible"
             constants={['true', 'false']}
             withNull

@@ -14,7 +14,7 @@ function BenefitPlanBeneficiariesSuspendedTabLabel({
       className={tabStyle(BENEFIT_PLAN_BENEFICIARIES_SUSPENDED_TAB_VALUE)}
       selected={isSelected(BENEFIT_PLAN_BENEFICIARIES_SUSPENDED_TAB_VALUE)}
       value={BENEFIT_PLAN_BENEFICIARIES_SUSPENDED_TAB_VALUE}
-      label={formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiariesSuspended.label')}
+      label={formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiariesSuspended.label')}
     />
   );
 }
@@ -23,7 +23,7 @@ function BenefitPlanBeneficiariesSuspendedTabPanel({ value, benefitPlan }) {
   return (
     <PublishedComponent
       pubRef="policyHolder.TabPanel"
-      module="socialProtection"
+      module="beneficiary"
       index={BENEFIT_PLAN_BENEFICIARIES_SUSPENDED_TAB_VALUE}
       value={value}
     >

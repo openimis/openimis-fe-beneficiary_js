@@ -82,14 +82,14 @@ function BenefitPackagePage({
   const configurePanels = (beneficiaryUuid) => {
     const individualPanelLabel = formatMessageWithValues(
       intl,
-      'socialProtection',
+      'beneficiary',
       'benefitPackage.Individual.pageTitle',
       {
         firstName: beneficiary?.individual?.firstName,
         lastName: beneficiary?.individual?.lastName,
       },
     );
-    const groupPanelLabel = formatMessage(intl, 'socialProtection', 'benefitPackage.GroupPanel.title');
+    const groupPanelLabel = formatMessage(intl, 'beneficiary', 'benefitPackage.GroupPanel.title');
 
     return {
       panel: beneficiaryUuid ? BenefitPackageIndividualPanel : BenefitPackageGroupPanel,
@@ -102,7 +102,7 @@ function BenefitPackagePage({
     <div className={classes.page}>
       {dependenciesFetched && (
       <Form
-        module="socialProtection"
+        module="beneficiary"
         title={panelsConfig.title}
         openDirty
         back={back}
@@ -112,7 +112,7 @@ function BenefitPackagePage({
         }
         benefitPlanTitle={formatMessageWithValues(
           intl,
-          'socialProtection',
+          'beneficiary',
           'benefitPlan.pageTitle',
           {
             code: benefitPlan?.code,
@@ -136,14 +136,14 @@ function BenefitPackagePage({
 const mapStateToProps = (state, props) => ({
   rights: !!state.core && !!state.core.user && !!state.core.user.i_user ? state.core.user.i_user.rights : [],
   beneficiaryUuid: props.match.params.beneficiary_uuid,
-  beneficiary: state.socialProtection.beneficiary,
-  fetchedBeneficiary: state.socialProtection.fetchedBeneficiary,
+  beneficiary: state.beneficiary.beneficiary,
+  fetchedBeneficiary: state.beneficiary.fetchedBeneficiary,
   benefitPlanUuid: props.match.params.benefit_plan_uuid,
-  benefitPlan: state.socialProtection.benefitPlan,
-  fetchedBenefitPlan: state.socialProtection.fetchedBenefitPlan,
+  benefitPlan: state.beneficiary.benefitPlan,
+  fetchedBenefitPlan: state.beneficiary.fetchedBenefitPlan,
   groupBeneficiariesUuid: props.match.params.group_beneficiaries_uuid,
-  groupBeneficiaries: state.socialProtection.group,
-  fetchedGroupBeneficiaries: state.socialProtection.fetchedGroup,
+  groupBeneficiaries: state.beneficiary.group,
+  fetchedGroupBeneficiaries: state.beneficiary.fetchedGroup,
 });
 
 export default injectIntl(withTheme(withStyles(styles)(connect(mapStateToProps, null)(

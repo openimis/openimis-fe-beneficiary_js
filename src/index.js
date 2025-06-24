@@ -59,7 +59,7 @@ const ROUTE_BENEFIT_PACKAGE = 'benefitPackage';
 
 const DEFAULT_CONFIG = {
   translations: [{ key: 'en', messages: flatten(messages_en) }],
-  reducers: [{ key: 'socialProtection', reducer }],
+  reducers: [{ key: 'beneficiary', reducer }],
   'core.Router': [
     {
       path: `${ROUTE_BENEFIT_PLAN}/:benefit_plan_uuid?/${ROUTE_BENEFIT_PACKAGE}/individual/:beneficiary_uuid?`,
@@ -71,10 +71,10 @@ const DEFAULT_CONFIG = {
     },
   ],
   refs: [
-    { key: 'socialProtection.route.benefitPackage', ref: ROUTE_BENEFIT_PACKAGE },
-    { key: 'socialProtection.BeneficiaryStatusPicker', ref: BeneficiaryStatusPicker },
-    { key: 'socialProtection.BenefitPlanSearcherForEntities', ref: BenefitPlanSearcherForEntities },
-    { key: 'socialProtection.BeneficiaryPicker', ref: BeneficiaryPicker },
+    { key: 'beneficiary.route.benefitPackage', ref: ROUTE_BENEFIT_PACKAGE },
+    { key: 'beneficiary.BeneficiaryStatusPicker', ref: BeneficiaryStatusPicker },
+    { key: 'beneficiary.BenefitPlanSearcherForEntities', ref: BenefitPlanSearcherForEntities },
+    { key: 'beneficiary.BeneficiaryPicker', ref: BeneficiaryPicker },
   ],
   'benefitPlan.TabPanel.label': [
     BenefitPlanBeneficiariesTabLabel,
@@ -107,19 +107,19 @@ const DEFAULT_CONFIG = {
     BenefitPackageGrievancesTabPanel,
   ],
   'tasksManagement.tasks': [{
-    text: <FormattedMessage module="socialProtection" id="beneficiary.tasks.title" />,
+    text: <FormattedMessage module="beneficiary" id="beneficiary.tasks.title" />,
     tableHeaders: BeneficiaryTaskTableHeaders,
     itemFormatters: BeneficiaryTaskItemFormatters,
     taskSource: ['BeneficiaryService'],
   },
   {
-    text: <FormattedMessage module="socialProtection" id="calculation.tasks.title" />,
+    text: <FormattedMessage module="beneficiary" id="calculation.tasks.title" />,
     tableHeaders: CalculationSocialProtectionTableHeaders,
     itemFormatters: CalculationSocialProtectionItemFormatters,
     taskSource: ['calcrule_social_protection'],
   },
   {
-    text: <FormattedMessage module="socialProtection" id="validation_import_valid_items.tasks.title" />,
+    text: <FormattedMessage module="beneficiary" id="validation_import_valid_items.tasks.title" />,
     tableHeaders: UploadResolutionTaskTableHeaders,
     itemFormatters: UploadResolutionItemFormatters,
     taskSource: ['import_valid_items'],

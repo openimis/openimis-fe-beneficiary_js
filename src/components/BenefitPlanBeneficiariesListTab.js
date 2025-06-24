@@ -14,7 +14,7 @@ function BenefitPlanBeneficiariesListTabLabel({
       className={tabStyle(BENEFIT_PLAN_BENEFICIARIES_LIST_TAB_VALUE)}
       selected={isSelected(BENEFIT_PLAN_BENEFICIARIES_LIST_TAB_VALUE)}
       value={BENEFIT_PLAN_BENEFICIARIES_LIST_TAB_VALUE}
-      label={formatMessage(intl, 'socialProtection', 'benefitPlan.benefitPlanBeneficiariesList.label')}
+      label={formatMessage(intl, 'beneficiary', 'benefitPlan.benefitPlanBeneficiariesList.label')}
     />
   );
 }
@@ -23,7 +23,7 @@ function BenefitPlanBeneficiariesListTabPanel({ value, benefitPlan }) {
   return (
     <PublishedComponent
       pubRef="policyHolder.TabPanel"
-      module="socialProtection"
+      module="beneficiary"
       index={BENEFIT_PLAN_BENEFICIARIES_LIST_TAB_VALUE}
       value={value}
     >

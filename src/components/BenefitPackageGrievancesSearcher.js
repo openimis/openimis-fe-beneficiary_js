@@ -17,10 +17,10 @@ function BenefitPackageGrievancesSearcher({
   const fetch = () => {};
 
   const headers = () => [
-    'socialProtection.beneficiary.firstName',
-    'socialProtection.beneficiary.lastName',
-    'socialProtection.beneficiary.dob',
-    'socialProtection.beneficiary.status',
+    'beneficiary.beneficiary.firstName',
+    'beneficiary.beneficiary.lastName',
+    'beneficiary.beneficiary.dob',
+    'beneficiary.beneficiary.status',
     '',
   ];
 
@@ -59,7 +59,7 @@ function BenefitPackageGrievancesSearcher({
       itemsPageInfo={beneficiariesPageInfo}
       tableTitle={formatMessageWithValues(
         intl,
-        'socialProtection',
+        'beneficiary',
         'beneficiaries.grievances.searcherResultsTitle',
         {
           beneficiariesTotalCount: 0,
@@ -77,7 +77,7 @@ function BenefitPackageGrievancesSearcher({
 // Temporarily based on beneficiaries to enable displaying searcher
 const mapStateToProps = (state) => ({
   rights: state.core?.user?.i_user?.rights ?? [],
-  beneficiariesPageInfo: state.socialProtection.beneficiariesPageInfo,
+  beneficiariesPageInfo: state.beneficiary.beneficiariesPageInfo,
   fetchingGrievances: null,
   fetchedGrievances: null,
   grievances: null,

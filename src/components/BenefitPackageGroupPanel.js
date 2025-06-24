@@ -35,7 +35,7 @@ function renderHeadPanelSubtitle(rights, intl, history, modulesManager, classes,
           <Typography>
             <FormattedMessage
               module={SOCIAL_PROTECTION_MODULE}
-              id="socialProtection.benefitPackage.GroupDetailPanel.title"
+              id="beneficiary.benefitPackage.GroupDetailPanel.title"
             />
             { !!groupUuid && (
             <Tooltip title={formatMessage(intl, SOCIAL_PROTECTION_MODULE, 'benefitPackage.GroupDetailPanel.tooltip')}>
