@@ -34,7 +34,8 @@ export default {
     json(),
     babel({
       exclude: 'node_modules/**',
-      babelHelpers: 'runtime'
+      babelHelpers: 'runtime',
+      plugins: ['@babel/plugin-transform-runtime']
     }),
   ]
 }
